@@ -7,7 +7,7 @@ CREATE TABLE country_id (
 	country_id varchar PRIMARY KEY NOT NULL
 );
 
-CREATE TABLE Data_science_salaries (
+CREATE TABLE data_science_salaries (
 	id int PRIMARY KEY NOT NULL,
 	work_year int NOT NULL,
 	experience_level varchar NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE Data_science_salaries (
 	salary int NOT NULL,
 	salary_currency varchar NOT NULL,
 	salary_in_usd int NOT NULL,
-	employee_residence int NOT NULL,
+	employee_residence varchar NOT NULL,
 	remote_ratio int NOT NULL,
 	company_location varchar NOT NULL,
 	company_size varchar NOT NULL,
