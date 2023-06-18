@@ -1,5 +1,5 @@
 // Bring in complete joined dataset.
-const salaryLivingData = "Data/complete_joined_data";
+const salaryLivingData = "/Data/complete_joined_data";
 
 // Initialize the dropdown menu.
 function initMenu()
