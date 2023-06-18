@@ -1,0 +1,15 @@
+"id","work_year","experience_level","employment_type","job_title","salary","salary_currency","salary_in_usd","employee_residence","remote_ratio","company_location","company_size","tech_hub","lat","long","cost_of_living_index","cost_of_lving_single_usd","cost_of_living_family4_usd","median_home_price_usd"
+249,2023,"EN","FT","Business Data Analyst",12000,"EUR",12877,"GR",50,"GR","L","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+808,2022,"MI","FT","Data Analyst",40000,"EUR",42026,"GR",100,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+809,2022,"MI","FT","Data Analyst",30000,"EUR",31520,"GR",100,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+868,2022,"MI","FT","Data Analyst",20000,"USD",20000,"GR",100,"GR","S","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+1854,2022,"MI","FT","Data Engineer",80000,"EUR",84053,"GR",100,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+1855,2022,"MI","FT","Data Engineer",70000,"EUR",73546,"GR",100,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+1934,2022,"MI","FT","Data Engineer",80000,"EUR",84053,"GR",100,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+1935,2022,"MI","FT","Data Engineer",70000,"EUR",73546,"GR",100,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+1940,2022,"MI","FT","Data Engineer",60000,"EUR",63040,"GR",100,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+1941,2022,"MI","FT","Data Engineer",45000,"EUR",47280,"GR",100,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+2042,2020,"SE","FT","Data Engineer",42000,"EUR",47899,"GR",50,"GR","L","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+2133,2021,"MI","FT","Data Science Engineer",34000,"EUR",40189,"GR",100,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+3050,2022,"MI","FT","ETL Developer",50000,"EUR",52533,"GR",0,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872
+3051,2022,"MI","FT","ETL Developer",50000,"EUR",52533,"GR",0,"GR","M","Thessaloniki","40.6403167","22.9352716","56.3","863","2852.9",235872

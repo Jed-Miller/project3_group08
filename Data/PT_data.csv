@@ -1,0 +1,15 @@
+"id","work_year","experience_level","employment_type","job_title","salary","salary_currency","salary_in_usd","employee_residence","remote_ratio","company_location","company_size","tech_hub","lat","long","cost_of_living_index","cost_of_lving_single_usd","cost_of_living_family4_usd","median_home_price_usd"
+793,2020,"EN","FT","Data Analyst",20000,"EUR",22809,"PT",100,"PT","M","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+1492,2023,"SE","FT","Data Engineer",65000,"EUR",69751,"PT",0,"PT","M","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+1493,2023,"SE","FT","Data Engineer",35000,"EUR",37558,"PT",0,"PT","M","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+1681,2022,"SE","FT","Data Engineer",60000,"EUR",63040,"PT",0,"PT","M","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+1682,2022,"SE","FT","Data Engineer",35000,"EUR",36773,"PT",0,"PT","M","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+1792,2022,"SE","FT","Data Engineer",70000,"EUR",73546,"PT",0,"PT","M","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+1793,2022,"SE","FT","Data Engineer",40000,"EUR",42026,"PT",0,"PT","M","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+3060,2023,"SE","FT","Head of Data",70000,"EUR",75116,"PT",100,"PT","L","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+3089,2022,"SE","FT","Lead Data Scientist",28500,"EUR",29944,"PT",50,"PT","S","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+3093,2022,"SE","FT","Lead Machine Learning Engineer",66000,"EUR",69344,"PT",100,"PT","L","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+3377,2022,"MI","FT","Machine Learning Infrastructure Engineer",53000,"EUR",55685,"PT",50,"PT","L","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+3378,2020,"MI","FT","Machine Learning Infrastructure Engineer",44000,"EUR",50180,"PT",0,"PT","M","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+3454,2022,"EN","FT","ML Engineer",20000,"EUR",21013,"PT",100,"PT","L","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000
+3596,2021,"SE","FT","Research Scientist",51400,"EUR",60757,"PT",50,"PT","L","Lisbon","38.7077507","-9.1365919","52.5","747.8","2632.5",714000

@@ -1,0 +1,14 @@
+"id","work_year","experience_level","employment_type","job_title","salary","salary_currency","salary_in_usd","employee_residence","remote_ratio","company_location","company_size","tech_hub","lat","long","cost_of_living_index","cost_of_lving_single_usd","cost_of_living_family4_usd","median_home_price_usd"
+199,2023,"SE","FT","Azure Data Engineer",100000,"USD",100000,"NL",50,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+910,2022,"SE","FT","Data Analytics Manager",133000,"USD",133000,"NL",0,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+1143,2022,"EN","FT","Data Engineer",57000,"EUR",59888,"NL",100,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+2036,2021,"MI","PT","Data Engineer",59000,"EUR",69741,"NL",100,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+2048,2021,"MI","FT","Data Engineer",38400,"EUR",45391,"NL",100,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+2812,2022,"MI","FT","Data Scientist",70000,"EUR",73546,"NL",50,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+2853,2022,"MI","FT","Data Scientist",52000,"EUR",54634,"NL",100,"NL","S","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+2860,2022,"MI","FT","Data Scientist",110000,"EUR",115573,"NL",0,"NL","M","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+2861,2022,"MI","FT","Data Scientist",85000,"EUR",89306,"NL",0,"NL","M","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+3105,2023,"MI","FT","Machine Learning Engineer",90000,"EUR",96578,"NL",100,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+3354,2022,"SE","FT","Machine Learning Engineer",57000,"EUR",59888,"NL",100,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+3588,2022,"EX","FT","Research Scientist",80000,"EUR",84053,"NL",0,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700
+3597,2020,"EN","FT","Research Scientist",42000,"USD",42000,"NL",50,"NL","L","Eindhoven","51.4392648","5.478633","69.7","1028.8","3598.7",328700

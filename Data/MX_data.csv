@@ -1,0 +1,11 @@
+"id","work_year","experience_level","employment_type","job_title","salary","salary_currency","salary_in_usd","employee_residence","remote_ratio","company_location","company_size","tech_hub","lat","long","cost_of_living_index","cost_of_lving_single_usd","cost_of_living_family4_usd","median_home_price_usd"
+1250,2023,"MI","FT","Data Engineer",72000,"USD",72000,"MX",100,"MX","M","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460
+1251,2023,"MI","FT","Data Engineer",60000,"USD",60000,"MX",100,"MX","M","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460
+2029,2020,"SE","FT","Data Engineer",720000,"MXN",33511,"MX",0,"MX","S","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460
+2131,2022,"SE","FT","Data Science Engineer",60000,"USD",60000,"AR",100,"MX","L","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460
+2150,2023,"SE","FT","Data Science Manager",150000,"USD",150000,"MX",100,"MX","M","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460
+2151,2023,"SE","FT","Data Science Manager",90000,"USD",90000,"MX",100,"MX","M","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460
+2717,2022,"MI","FT","Data Scientist",30000,"USD",30000,"MX",100,"MX","L","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460
+3218,2023,"MI","FT","Machine Learning Engineer",36000,"USD",36000,"MX",100,"MX","S","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460
+3272,2022,"SE","FT","Machine Learning Engineer",255000,"USD",255000,"MX",100,"MX","M","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460
+3273,2022,"SE","FT","Machine Learning Engineer",185000,"USD",185000,"MX",100,"MX","M","Guadalajara","20.6720375","-103.338396","44","642.3","2337.2",122460

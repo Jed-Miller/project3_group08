@@ -1,0 +1,15 @@
+"id","work_year","experience_level","employment_type","job_title","salary","salary_currency","salary_in_usd","employee_residence","remote_ratio","company_location","company_size","tech_hub","lat","long","cost_of_living_index","cost_of_lving_single_usd","cost_of_living_family4_usd","median_home_price_usd"
+7,2023,"EN","FT","AI Programmer",70000,"USD",70000,"IN",0,"AU","L","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+8,2022,"EN","FT","AI Programmer",40000,"USD",40000,"PK",100,"AU","M","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+212,2022,"MI","FT","BI Data Analyst",65000,"AUD",45050,"AU",50,"AU","L","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+214,2022,"MI","FT","BI Data Analyst",77000,"AUD",53368,"AU",100,"AU","M","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+286,2022,"EN","FT","Computer Vision Software Engineer",150000,"USD",150000,"AU",100,"AU","S","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+647,2022,"SE","FT","Data Analyst",171000,"USD",171000,"US",100,"AU","L","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+752,2021,"EN","FT","Data Analyst",56000,"AUD",42028,"AU",50,"AU","L","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+1777,2021,"MI","FT","Data Engineer",100000,"AUD",75050,"AU",50,"AU","L","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+2184,2022,"SE","FT","Data Science Manager",193000,"AUD",133766,"AU",100,"AU","L","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+2759,2022,"MI","FT","Data Scientist",120000,"AUD",83171,"AU",0,"AU","L","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+2951,2022,"EN","FT","Data Scientist",120000,"AUD",83171,"AU",50,"AU","M","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+3096,2022,"EN","FT","Machine Learning Developer",40000,"USD",40000,"PK",100,"AU","M","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+3353,2022,"MI","FT","Machine Learning Engineer",121000,"AUD",83864,"AU",100,"AU","L","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
+3602,2023,"SE","FL","Software Data Engineer",50000,"USD",50000,"NG",50,"AU","M","Melbourne","-37.8142176","144.9632","80.6","1147.3","4101.2",1023000
