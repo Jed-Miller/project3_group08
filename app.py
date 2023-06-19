@@ -48,8 +48,9 @@ def welcome():
 @app.route("/api/v1.0/complete_data")
 def complete():
     """List complete dataset data."""
-    test_data = pd.read_csv("complete_joined_data.csv")
+    test_data = pd.read_csv("Data/complete_joined_data.csv")
     return jsonify(test_data.to_dict(orient='records'))
+    
 
 @app.route("/api/v1.0/cost_of_living_overview")
 def overview():
