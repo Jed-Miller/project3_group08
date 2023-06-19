@@ -26,7 +26,7 @@ def welcome():
         f"/api/v1.0/cost_of_living_overview<br/>"
         f"Returns list of tech_hubs and their cost of living metrics.<br/>"
         f"----------------------<br>"
-        f"/api/v1.0/salary_data_by_country/<country_id><br/>"
+        f"/api/v1.0/salary_data_by_country/country_id<br/>"
         f"Returns salary and cost of living data for user-provided country.<br/>"
         f"<br><h3>Available countries and their ids<br>"
         f"----------------------<h3>"
@@ -119,19 +119,9 @@ def country(country_id):
         f"United States == US<h4><br>"
         )
         
-    
-
+@app.route("/api/v1.0/test")
+def render():
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-# <!DOCTYPE html>
-# <html>
-#     <head>
-#         <title>CSV Data</title>
-#     </head>
-#     <body>
-#         {{ data|safe }}
-#     </body>
-# </html>

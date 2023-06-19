@@ -11,6 +11,6 @@ function initMenu()
     d3.json(salaryLivingData).then((data) => 
     {
         console.log(data);
-    }
+    })
     
-}
+};
