@@ -2,9 +2,11 @@
 import pandas as pd
 import json
 
-
-
 from flask import Flask, jsonify, render_template
+
+with open("Data/mapData.json", "r") as f:
+        mapGEO = f.read()
+        loaded_JSON = json.loads(mapGEO)
 
 #################################################
 # Flask Setup
@@ -57,16 +59,23 @@ def welcome():
 def complete():
     """List complete dataset data."""
     test_data = pd.read_csv("Data/complete_joined_data.csv")
-    return jsonify(test_data.to_dict(orient='records'))
     
+
 """List cost of living overview data data."""
 @app.route("/api/v1.0/cost_of_living_geoJSON")
 def geoJSON():
     
-    mapGEO = pd.read_json("Data/mapData.json")
-    results = mapGEO.to_json(orient="records")
-    parsed = json.loads(results)
-    return parsed
+    return jsonify(loaded_JSON)
+    # THE VINNY WAY (The pretty way)
+    # mapGEO = pd.read_json("Data/mapData.json")
+    # results = mapGEO.to_json(orient="records")
+    # parsed = json.loads(results)
+    # return parsed
+
+    
+    # mapGEO = json.dumps(json.loads("Data/mapGEO.json"))
+    # return mapGEO
+    # THE VINNY WAY
 
 """List selected country data."""
 @app.route("/api/v1.0/salary_data_by_country/<country_id>")
@@ -129,7 +138,9 @@ def country(country_id):
         f"Portugal == PT<br>"
         f"United States == US<h4><br>"
         )
-        
+
+
+
 @app.route("/api/v1.0/rendered_HTML")
 def render():
     return render_template("index.html")
