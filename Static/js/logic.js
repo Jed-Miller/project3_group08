@@ -1,11 +1,7 @@
 // Bring in complete joined dataset.
 const salaryLivingData = "/api/v1.0/complete_data";
-const mapData = "/api/v1.0/cost_of_living_overview";
+const mapData = "/api/v1.0/cost_of_living_geoJSON";
 
-d3.json(mapData).then((data) => 
-{
-    console.log(data);
-})
 // Initialize the dropdown menu.
 function initMenu()
 {
@@ -36,10 +32,11 @@ function initMenu()
     
 };
 
-//Perform a GET request to 
-d3.json(markerData).then((data) => 
+//Perform a GET request to the data for map
+d3.json(mapData).then((data) => 
 {
     console.log(data);
+
 })
 
 initMenu();
