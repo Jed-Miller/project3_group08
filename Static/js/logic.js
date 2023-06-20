@@ -32,6 +32,8 @@ function initMenu()
     
 };
 
+//Create the map chart.
+
 //Perform a GET request to the data for map
 d3.json(mapData).then((data) => 
 {
@@ -40,7 +42,7 @@ d3.json(mapData).then((data) =>
 });
 
 //Create function for the size of the circle based on the average salary in US dollars.
-function circleSize(salary_usd) {
+function circleSize(salaryUSD) {
     return avg_salary_usd;
 };
 
@@ -84,7 +86,7 @@ function createFeatures(costLiving) {
 
     // Create a GeoJSON layer that contains the features array on the mapData object.
     // Run the onEachFeature function once for each piece of data in the array.
-    let techHubs = L.geoJSON(quakeData,
+    let techHubs = L.geoJSON(costLiving,
         {
             onEachFeature: onEachFeature,
         
@@ -107,7 +109,68 @@ function createFeatures(costLiving) {
 }
 
 //Create the createMap function.
-//function 
+function createMap(costLiving)
+{
+    //Create the base layers from mapbox.
+    let outdoors = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v12/tiles/{z}/{x}/{y}?access_token={access_token}', 
+    {
+    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    zoom: 13,
+    access_token: api_key
+    })
+
+    let satellite = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/{z}/{x}/{y}?access_token={access_token}', 
+    {
+    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    zoom: 13,
+    access_token: api_key
+    });
+
+    //Create a basemaps object.
+    let basemaps =
+    {
+        Outdoors: outdoors,
+        Satellite: satellite
+    };
+
+    //Create an overlay object to hold our overlay.
+    let overlayMap =
+    {
+        TechHub: techHubs
+    };
+
+    //Create the map.
+    let myMap = L.map("map",
+    {
+        center: [0,0],
+        zoom: 0,
+        layers: [outdoors, techHubs]
+    });
+
+    //Create a layer control.
+    //Pass it to the baseMaps and overlayMap
+    //Add the control to the map
+    L.control.layers(baseMaps, overlayMaps, {
+        collapsed: false
+    }).addTo(myMap);
+
+    //Create legend
+    let legend = L.control({position: "bottomright"});
+    legend.onAdd = function() {
+        let div = LDomUtil.create("div", "info legend"),
+        indexLevel = [20,30,40,50,60,70,80,90];
+
+        div.innerHTML += "<h3 style='text-align: right'>Cost of Living Index</h3>"
+
+        for (var i = 0; i < indexLevel.length; i ++) {
+            div.innerHTML +=
+            '<i style="background:' +colorDepth(indexLevel[i] + 1) + '"></i> ' + indexLevel[i] + (indexLevel[i + 1] ? '&ndash;' + indexLevel[i + 1] + '<br>' : '+');
+        }
+        return div;
+    };
+
+        legend.addTo(myMap);
+}
 
 initMenu();
 
