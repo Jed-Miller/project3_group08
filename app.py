@@ -55,23 +55,23 @@ def complete():
 @app.route("/api/v1.0/cost_of_living_overview")
 def overview():
     """List cost of living overview data data."""
-    test_data = pd.read_csv("popup_data.csv")
+    test_data = pd.read_csv("Data/popup_data.csv")
     return jsonify(test_data.to_dict(orient='records'))
 
 """List selected country data."""
 @app.route("/api/v1.0/salary_data_by_country/<country_id>")
 def country(country_id): 
     if country_id == "AU": 
-        test_data = pd.read_csv("AU_data.csv")
+        test_data = pd.read_csv("Data/AU_data.csv")
         return jsonify(test_data.to_dict(orient='records'))
     elif country_id == "BR":
-        test_data = pd.read_csv("BR_data.csv")
+        test_data = pd.read_csv("Data/BR_data.csv")
         return jsonify(test_data.to_dict(orient='records'))
     elif country_id == "CA":
-        test_data = pd.read_csv("CA_data.csv")
+        test_data = pd.read_csv("Data/CA_data.csv")
         return jsonify(test_data.to_dict(orient='records'))
     elif country_id == "DE":
-        test_data = pd.read_csv("DE_data.csv")
+        test_data = pd.read_csv("Data/DE_data.csv")
         return jsonify(test_data.to_dict(orient='records'))
     elif country_id == "ES":
         test_data = pd.read_csv("ES_data.csv")
