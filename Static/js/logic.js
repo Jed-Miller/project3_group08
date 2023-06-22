@@ -1,6 +1,7 @@
 // Bring in complete joined dataset.
 const salaryLivingData = "/api/v1.0/complete_data";
 const mapData = "/api/v1.0/cost_of_living_geoJSON";
+const countryList = "/api/v1.0/countryList/";
 
 // Initialize the dropdown menu.
 function initMenu()
@@ -9,25 +10,18 @@ function initMenu()
     let dropDownMenu = d3.select("#selDataset");
 
     // Fetch the JSON data and console log it.
-    d3.json(salaryLivingData).then((data) => 
+    d3.json(countryList).then((data) => 
     {
         console.log(data);
 
-        //Set country names variable.
-        let countryNames = new Set();
+        //Set the country names variable.
+        let countryNames = data.data
 
-        //Iterate through the country names onto the dropdown menu, appending each key value to the the dropdown as a new option.
-        data.forEach((countryName) =>
+        //Iterate through the country names onto the dropdown menu
+        countryNames.forEach((countryName) =>
         {
-            countryNames.add(countryName.country)
-            countryList = Array.from(countryNames);
+            dropDownMenu.append("option").text(countryName).property("value", countryName);
         });
-        
-        countryList.forEach((country) =>
-        {
-            dropDownMenu.append("option").text(country).property("value", country);
-        });
-        
     })
     
 };
@@ -177,6 +171,8 @@ d3.json(mapData).then((data) =>
     }
 });
 }
+
+
 initMenu();
 worldMap();
 

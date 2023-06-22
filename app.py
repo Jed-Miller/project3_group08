@@ -2,11 +2,8 @@
 import pandas as pd
 import json
 
-import sqlalchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-from sqlalchemy import text
+
 
 from flask import Flask, jsonify, render_template
 
@@ -34,17 +31,17 @@ def welcome():
         f"<h4>/api/v1.0/complete_data<br/>"
         f"Returns all data from database.<br/>"
         f"----------------------<br>"
-        f"/api/v1.0/rendered_HTML<br/>"
-        f"Returns rendered version of analytics project<br/>"
-        f"----------------------<br>"
         f"/api/v1.0/cost_of_living_geoJSON<br/>"
         f"Returns geoJSON file of cost_living_metrics<br/>"
         f"----------------------<br>"
         f"/api/v1.0/salary_data_by_country/country_id<br/>"
         f"Returns salary and cost of living data for user-provided country.<br/>"
         f"----------------------<br>"
-        f"/api/v1.0/cost_of_living_overview<br/>"
-        f"Returns list of tech_hubs and their cost of living metrics.<br/>"
+        f"/api/v1.0/countryList<br/>"
+        f"Returns list of countries within the dataset.<br/>"
+        f"----------------------<br>"
+        f"/api/v1.0/rendered_HTML<br/>"
+        f"Returns rendered version of analytics project<br/>"
         f"<br><h3>Available countries and their ids<br>"
         f"----------------------<h3>"
         f"<h4>Australia == AU<br>"
@@ -60,9 +57,6 @@ def welcome():
         f"Netherlands == NE<br>"
         f"Portugal == PT<br>"
         f"United States == US<h4><br>"
-        f"----------------------<br>"
-        f"<br>/api/v1.0/cost_of_living_overview<br/>"
-        f"Returns list of tech_hubs and their cost of living metrics.<br/>"
     )
 
 @app.route("/api/v1.0/complete_data")
@@ -94,7 +88,7 @@ def geoJSON():
 
 """List selected country data."""
 @app.route("/api/v1.0/salary_data_by_country/<country_id>")
-def country(country_id): 
+def countrySalary(country_id): 
 
     with engine.connect() as connection:
         query =f"""
@@ -109,8 +103,21 @@ def country(country_id):
         test_data = pd.read_sql_query(query, connection)
         if test_data.empty:
             return jsonify({"Error": "Wrong Entry"})
-    return jsonify(test_data.to_dict(orient='records'))
+    return jsonify(test_data.to_dict(orient='split'))
 
+@app.route("/api/v1.0/countryList/")
+def countryList(): 
+
+    with engine.connect() as connection:
+        query =f"""
+        SELECT country
+        FROM cost_of_living_cleaned
+        ORDER BY country asc;"""
+        test_data = pd.read_sql_query(query, connection)
+        result = test_data.to_json(orient='split')
+        parsed = json.loads(result)
+        countryJSON = json.dumps(parsed, indent=1)
+        return countryJSON
 
 @app.route("/api/v1.0/rendered_HTML")
 def renderWelcome():
