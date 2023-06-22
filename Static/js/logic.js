@@ -32,33 +32,20 @@ function initMenu()
     
 };
 
-//Create the map.
-// let myMap = L.map("map",
-// {
-//     center: [0,0],
-//     zoom: 0,
-//     //layers: [outdoors, techHubs]
-// });
-// L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-//     {attribution:`&copy; <a href="https://www.openstreetmap.org/copyright">
-//                  OpenStreetMap</a> contributors`})
-//     .addTo(myMap)
-//Create the map chart.
-
-//Perform a GET request to the data for map
+// Create the world map function.
 function worldMap( ) {
+//Perform a GET request to the data for map
 d3.json(mapData).then((data) => 
 {
     console.log(data);
     createFeatures(data.features);
-    // createFeatures(data.features);
-
 
     //Create function for the size of the circle based on the average salary in US dollars.
     function circleSize(avgSalary) {
         return avgSalary * 4;
     };
 
+    //Create a colorDepth function based off the cost of living index
     function colorDepth(costIndex) {
         if (costIndex < 30) {
             return "#1b7ca5";
@@ -177,7 +164,7 @@ d3.json(mapData).then((data) =>
             let div = L.DomUtil.create("div", "info legend"),
             indexLevel = [20,30,40,50,60,70,80,90];
 
-            div.innerHTML += "<h5 style='text-align: right'>Cost Index</h5>"
+            div.innerHTML += "<h5 style='text-align: right'>CL Index</h5>"
 
             for (var i = 0; i < indexLevel.length; i ++) {
                 div.innerHTML +=
@@ -190,6 +177,6 @@ d3.json(mapData).then((data) =>
     }
 });
 }
-//initMenu();
+initMenu();
 worldMap();
 
