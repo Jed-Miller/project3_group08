@@ -36,9 +36,12 @@ def welcome():
         f"----------------------<br>"
         f"/api/v1.0/salary_data_by_country/country_id<br/>"
         f"Returns salary and cost of living data for user-provided country.<br/>"
-        f"----------------------<br>"
+         f"----------------------<br>"
         f"/api/v1.0/countryList<br/>"
         f"Returns list of countries within the dataset.<br/>"
+        f"----------------------<br>"
+        f"/api/v1.0/companySizeExperience/Australiabr/>"
+        f"Returns list of average salaries based off company size and employee experience level.<br/>"
         f"----------------------<br>"
         f"/api/v1.0/rendered_HTML<br/>"
         f"Returns rendered version of analytics project<br/>"
@@ -105,7 +108,24 @@ def countrySalary(country_id):
             return jsonify({"Error": "Wrong Entry"})
     return jsonify(test_data.to_dict(orient='split'))
 
-@app.route("/api/v1.0/countryList/")
+@app.route("/api/v1.0/companySizeExperience/<country>")
+def barData(country): 
+
+    with engine.connect() as connection:
+        query =f"""
+        SELECT ds.company_size, ds.experience_level, ROUND(avg(ds.salary_in_usd))
+        FROM data_science_salaries ds
+        INNER JOIN cost_of_living_cleaned clc
+        ON ds.company_location = clc.country_id
+        WHERE clc.country = '{country}'
+        GROUP BY ds.company_size, ds.experience_level"""
+        test_data = pd.read_sql_query(query, connection)
+        result = test_data.to_json(orient='split')
+        parsed = json.loads(result)
+        barJSON = json.dumps(parsed, indent=1)
+        return barJSON
+
+@app.route("/api/v1.0/countryList")
 def countryList(): 
 
     with engine.connect() as connection:

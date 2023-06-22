@@ -1,7 +1,8 @@
 // Bring in complete joined dataset.
 const salaryLivingData = "/api/v1.0/complete_data";
 const mapData = "/api/v1.0/cost_of_living_geoJSON";
-const countryList = "/api/v1.0/countryList/";
+const countryList = "/api/v1.0/countryList";
+// const sizeExperience = "/api/v1.0/companySizeExperience";
 
 // Initialize the dropdown menu.
 function initMenu()
@@ -22,6 +23,10 @@ function initMenu()
         {
             dropDownMenu.append("option").text(countryName).property("value", countryName);
         });
+
+        countryName = countryNames[0];
+
+        groupedBars(countryName);
     })
     
 };
@@ -42,25 +47,28 @@ d3.json(mapData).then((data) =>
     //Create a colorDepth function based off the cost of living index
     function colorDepth(costIndex) {
         if (costIndex < 30) {
-            return "#1b7ca5";
+            return "#0ad2ff";
         }
         else if (costIndex < 40) {
-            return "#2962ff";
+            return "#0fffdb";
         }
         else if (costIndex < 50) {
-            return "#9500ff";
+            return "#2962ff";
         }
         else if (costIndex < 60) {
-            return "#ff0059";
+            return "#b4e600";
         }
         else if (costIndex < 70) {
             return "#ff8c00";
         }
-        else if (costIndex <= 80) {
-            return "#b4e600";
+        else if (costIndex < 80) {
+            return "#9500ff";
         }
-        else if (costIndex <= 90) {
-            return "#0fffdb";
+        else if (costIndex < 90) {
+            return "#ff0059";
+        }
+        else {
+            return "#22052d";
         }
     }
 
@@ -162,7 +170,7 @@ d3.json(mapData).then((data) =>
 
             for (var i = 0; i < indexLevel.length; i ++) {
                 div.innerHTML +=
-                '<i style="background:' +colorDepth(indexLevel[i]) + '"></i> ' + indexLevel[i] + (indexLevel[i] ? '&ndash;' + indexLevel[i] + '<br>' : '+');
+                '<i style="background:' + colorDepth(indexLevel[i] + 1) + '"></i> ' + indexLevel[i] + (indexLevel[i + 1] ? '&ndash;' + indexLevel[i + 1] + '<br>' : '+');
             }
             return div;
         };
@@ -170,6 +178,76 @@ d3.json(mapData).then((data) =>
             legend.addTo(myMap);
     }
 });
+}
+
+function groupedBars()
+{
+    let countryName = d3.select("#selDataset").node().value
+    
+    d3.json(`/api/v1.0/companySizeExperience/${countryName}`).then(data => 
+    {
+        console.log(data)
+        
+        let companySize = [];
+        let experienceLevel = [];
+        let avgSalary = [];
+
+
+        for (let prop of data.data)
+        {
+            console.log(`key: ${prop}, value: ${obj[prop]}`);
+            // experienceLevel.push(i["Experience Level"])
+            // avgSalary.push(i["Avg Salary"])
+        };
+
+
+
+        // let dom = document.getElementById('chart-container');
+        // let myChart = echarts.init(dom, null, {
+        // renderer: 'canvas',
+        // useDirtyRect: false
+        // });
+        // let app = {};
+
+        // let option;
+
+        // option = {
+        //     legend: {},
+        //     tooltip: {},
+        //     dataset: {
+        //       source: [
+        //         ['Company Size', '2012', '2013', '2014', '2015'],
+        //         ['Entry Level', 41.1, 30.4, 65.1, 53.3],
+        //         ['Mid/Intermediate Level', 86.5, 92.1, 85.7, 83.1],
+        //         ['Senior Level', 24.1, 67.2, 79.5, 86.4]
+        //         ['Executive Level', 24.1, 67.2, 79.5, 86.4]
+        //       ]
+        //     },
+        //     xAxis: [
+        //       { type: 'category', gridIndex: 0 },
+        //       { type: 'category', gridIndex: 1 }
+        //     ],
+        //     yAxis: [{ gridIndex: 0 }, { gridIndex: 1 }],
+        //     grid: [{ bottom: '55%' }, { top: '55%' }],
+        //     series: [
+        //       // These series are in the first grid.
+        //       { type: 'bar', seriesLayoutBy: 'row' },
+        //       { type: 'bar', seriesLayoutBy: 'row' },
+        //       { type: 'bar', seriesLayoutBy: 'row' },
+        //       // These series are in the second grid.
+        //       { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+        //       { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+        //       { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+        //       { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
+        //     ]
+        //   };
+          
+        //   if (option && typeof option === 'object') {
+        //     myChart.setOption(option);
+        //   }
+          
+        //   window.addEventListener('resize', myChart.resize);
+    })
 }
 
 
