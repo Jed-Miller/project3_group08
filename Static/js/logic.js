@@ -46,6 +46,7 @@ function initMenu()
 //Create the map chart.
 
 //Perform a GET request to the data for map
+function worldMap( ) {
 d3.json(mapData).then((data) => 
 {
     console.log(data);
@@ -60,25 +61,25 @@ d3.json(mapData).then((data) =>
 
     function colorDepth(costIndex) {
         if (costIndex < 30) {
-            return "#000000";
+            return "#1b7ca5";
         }
         else if (costIndex < 40) {
-            return "#008000";
+            return "#2962ff";
         }
         else if (costIndex < 50) {
-            return "#00BFFF";
+            return "#9500ff";
         }
         else if (costIndex < 60) {
-            return "#483D8B";
+            return "#ff0059";
         }
         else if (costIndex < 70) {
-            return "#9932CC";
+            return "#ff8c00";
         }
-        else if (costIndex < 80) {
-            return "#DC143C";
+        else if (costIndex <= 80) {
+            return "#b4e600";
         }
-        else {
-            return "#A52A2A";
+        else if (costIndex <= 90) {
+            return "#0fffdb";
         }
     }
 
@@ -90,9 +91,9 @@ d3.json(mapData).then((data) =>
         {
             layer.bindPopup(`<h4>${feature.properties.name}<h4><hr>\
             <h5>Average Salary in USD: ${feature.properties.avg_salary_usd}<h5>\
-            <h5>Cost of Living Index: ${feature.properties.cost_of_living_index}<h5>\
-            <h5>Cost of Living for Single Person in USD: ${feature.properties.cost_of_living_single_usd}<h5>\
-            <h5>Cost of Living for Family of 4 in USD: ${feature.properties.cost_of_living_family4_usd}<h5>\
+            <h5>Cost of Living Index (Housing Not Included): ${feature.properties.cost_of_living_index}<h5>\
+            <h5>Cost of Living for Single Person in USD (Housing Not Included): ${feature.properties.cost_of_living_single_usd}<h5>\
+            <h5>Cost of Living for Family of 4 in USD (Housing Not Included): ${feature.properties.cost_of_living_family4_usd}<h5>\
             <h5>Median Home Price in USD: ${feature.properties.median_home_price_usd}<h5>`);
         }
 
@@ -124,6 +125,8 @@ d3.json(mapData).then((data) =>
     //Create the createMap function.
     function createMap(techHubs)
     {
+        console.log("Welcome")
+        
         //Create the base layers from mapbox.
         let outdoors = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v12/tiles/{z}/{x}/{y}?access_token={access_token}', 
         {
@@ -155,8 +158,9 @@ d3.json(mapData).then((data) =>
         //Create the map.
         let myMap = L.map("map",
         {
-            center: [-10,20],
-            zoom: 2.499,
+            center: [15,20],
+            zoom: .8,
+            minZoom: 2.3,
             layers: [outdoors, techHubs]
         });
 
@@ -173,11 +177,11 @@ d3.json(mapData).then((data) =>
             let div = L.DomUtil.create("div", "info legend"),
             indexLevel = [20,30,40,50,60,70,80,90];
 
-            div.innerHTML += "<h5 style='text-align: right'>CLI</h5>"
+            div.innerHTML += "<h5 style='text-align: right'>Cost Index</h5>"
 
             for (var i = 0; i < indexLevel.length; i ++) {
                 div.innerHTML +=
-                '<i style="background:' +colorDepth(indexLevel[i] + 1) + '"></i> ' + indexLevel[i] + (indexLevel[i + 1] ? '&ndash;' + indexLevel[i + 1] + '<br>' : '+');
+                '<i style="background:' +colorDepth(indexLevel[i]) + '"></i> ' + indexLevel[i] + (indexLevel[i] ? '&ndash;' + indexLevel[i] + '<br>' : '+');
             }
             return div;
         };
@@ -185,6 +189,7 @@ d3.json(mapData).then((data) =>
             legend.addTo(myMap);
     }
 });
-
-initMenu();
+}
+//initMenu();
+worldMap();
 
