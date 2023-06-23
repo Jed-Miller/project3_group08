@@ -113,12 +113,12 @@ def barData(country):
 
     with engine.connect() as connection:
         query =f"""
-        SELECT ds.company_size, ds.experience_level, ROUND(avg(ds.salary_in_usd))
+        SELECT clc.country, ds.company_size, ds.experience_level, ROUND(avg(ds.salary_in_usd))
         FROM data_science_salaries ds
         INNER JOIN cost_of_living_cleaned clc
         ON ds.company_location = clc.country_id
         WHERE clc.country = '{country}'
-        GROUP BY ds.company_size, ds.experience_level"""
+        GROUP BY clc.country, ds.company_size, ds.experience_level"""
         test_data = pd.read_sql_query(query, connection)
     return jsonify(test_data.to_dict(orient='records'))
 
