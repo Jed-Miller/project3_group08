@@ -30,6 +30,9 @@ def welcome():
         f"----------------------<h3>"
         f"<h4>/api/v1.0/complete_data<br/>"
         f"Returns all data from database.<br/>"
+         f"----------------------<h3>"
+        f"<h4>/api/v1.0/data_science_salaries_top7<br/>"
+        f"Returns salaries from top 7 job titles in data base.<br/>"
         f"----------------------<br>"
         f"/api/v1.0/cost_of_living_geoJSON<br/>"
         f"Returns geoJSON file of cost_living_metrics<br/>"
@@ -74,6 +77,19 @@ def complete():
         FROM data_science_salaries ds
         INNER JOIN cost_of_living_cleaned clc
         ON ds.company_location = clc.country_id"""
+        test_data = pd.read_sql_query(query, connection)
+    return jsonify(test_data.to_dict(orient='records'))
+
+@app.route("/api/v1.0/data_science_salaries_top7")
+def top7():
+    """List complete dataset data."""
+    with engine.connect() as connection:
+        query ="""
+        SELECT job_title, salary_in_usd
+        FROM data_science_salaries
+        WHERE job_title IN('Data Engineer', 'Data Analyst', 'Data Scientist',
+                        'Machine Learning Engineer', 'Analytics Engineer',
+                        'Research Scientist', 'Data Architect')"""
         test_data = pd.read_sql_query(query, connection)
     return jsonify(test_data.to_dict(orient='records'))
 
