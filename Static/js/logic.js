@@ -2,6 +2,7 @@
 const salaryLivingData = "/api/v1.0/complete_data";
 const mapData = "/api/v1.0/cost_of_living_geoJSON";
 const countryList = "/api/v1.0/countryList";
+const boxplot = "/api/v1.0/data_science_salaries_top7";
 // const sizeExperience = "/api/v1.0/companySizeExperience";
 
 // Initialize the dropdown menu.
@@ -198,6 +199,8 @@ function groupedBars(country)
          // //Iterate through the country names onto the dropdown menu
          companyDetails.forEach(function(companyDetail)
          {
+            let country = data.country
+        console.log(typeof country)
             if (companyDetail.experience_level == "EN")
             {
                 enAvg.push(companyDetail.round);
@@ -317,8 +320,59 @@ function testbar()
     window.addEventListener('resize', myChart.resize);
 };
 
+function boxplot_data()
+{
+    d3.json(boxplot).then(function(data){
+    var y0 = data.filter(user => user.job_title=="Data Analyst").map(user => user.salary_in_usd);
+    var y1 = data.filter(user => user.job_title=="Data Scientist").map(user => user.salary_in_usd);
+    var y2 = data.filter(user => user.job_title=="Data Engineer").map(user => user.salary_in_usd);
+    var y3 = data.filter(user => user.job_title=="Machine Learning Engineer").map(user => user.salary_in_usd);
+    var y4 = data.filter(user => user.job_title=="Analytics Engineer").map(user => user.salary_in_usd);
+    var y5 = data.filter(user => user.job_title=="Data Architect").map(user => user.salary_in_usd);
+    var y6 = data.filter(user => user.job_title=="Research Scientist").map(user => user.salary_in_usd);
+    var Data_Analyst = {
+      y: y0,
+      type: 'box',
+      name:'Data Analyst'
+    };
+    var Data_Scientist = {
+      y: y1,
+      type: 'box',
+      name:'Data Scientist'
+    };
+    var Data_Engineer = {
+      y: y2,
+      type: 'box',
+      name:'Data Engineer'
+    };
+    var Machine_Learning = {
+      y: y3,
+      type: 'box',
+      name:'Machine Learning Engineer'
+    };
+    var Analytics_Engineer = {
+      y: y4,
+      type: 'box',
+      name:'Analytics Engineer'
+    };
+    var Data_Architect = {
+      y: y5,
+      type: 'box',
+      name:'Data Architect'
+    };
+    var Research_Scientist = {
+      y: y6,
+      type: 'box',
+      name:'Research Scientist'
+    };
+    var data = [Data_Analyst, Data_Scientist,Data_Engineer,Machine_Learning,Analytics_Engineer,Data_Architect,Research_Scientist];
+    Plotly.newPlot('mymap', data);
+    });
+  }
+
 
 initMenu();
 worldMap();
 testbar();
+boxplot_data();
 
