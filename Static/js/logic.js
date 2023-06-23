@@ -24,7 +24,7 @@ function initMenu()
             dropDownMenu.append("option").text(countryName.country).property("value", countryName.country);
         });
 
-        countryName = countryNames[0];
+        countryName = 'Autralia';
 
         groupedBars(countryName);
     })
@@ -179,14 +179,15 @@ d3.json(mapData).then((data) =>
 });
 }
 
-function groupedBars()
+function groupedBars(country)
 {
     let companySizeEx = d3.select("#selDataset").node().value
     
     d3.json(`/api/v1.0/companySizeExperience/${companySizeEx}`).then(data => 
     {
         console.log(data)
-        
+        let country = data.country
+        console.log(typeof country)
         //Set the country names variable.
         let companyDetails = data
         let enAvg = [];
@@ -203,72 +204,121 @@ function groupedBars()
             }
             else if (companyDetail.experience_level == "MI")
             {
-                miAvg.push(companyDetail.experience_level, companyDetail.round);
+                miAvg.push(companyDetail.round);
             }
             else if (companyDetail.experience_level == "SE")
             {
-                exAvg.push(companyDetail.experience_level, companyDetail.round);
+                exAvg.push(companyDetail.round);
             }
             else
             {
-                exAvg.push(companyDetail.experience_level, companyDetail.round);
+                exAvg.push(companyDetail.round);
             }
          });
 
-        //  console.log(enAvg);
-        //  console.log(miAvg);
-        //  console.log(exAvg);
-        //  console.log(seAvg);
+         console.log(enAvg);
+         console.log(miAvg);
+         console.log(exAvg);
+         console.log(seAvg);
 
-        let dom = document.getElementById('chart-container');
-        let myChart = echarts.init(dom, null, {
-        renderer: 'canvas',
-        useDirtyRect: false
-        });
-        let app = {};
+        // let dom = document.getElementById('chart-container');
+        // let myChart = echarts.init(dom, null, {
+        // renderer: 'canvas',
+        // useDirtyRect: false
+        // });
+        // let app = {};
 
-        let option;
+        // let option;
 
-        option = {
-            legend: {},
-            tooltip: {},
-            dataset: {
-              source: [
-                ['Company Size', 'Small', 'Medium', 'Large'],
-                ['Entry Level', 41.1, 30.4, 65.1, 53.3],
-                ['Mid/Intermediate Level', 86.5, 92.1, 85.7, 83.1],
-                ['Senior Level', 24.1, 67.2, 79.5, 86.4]
-                ['Executive Level', 24.1, 67.2, 79.5, 86.4]
-              ]
-            },
-            xAxis: [
-              { type: 'category', gridIndex: 0 },
-              { type: 'category', gridIndex: 1 }
-            ],
-            yAxis: [{ gridIndex: 0 }, { gridIndex: 1 }],
-            grid: [{ bottom: '55%' }, { top: '55%' }],
-            series: [
-              // These series are in the first grid.
-              { type: 'bar', seriesLayoutBy: 'row' },
-              { type: 'bar', seriesLayoutBy: 'row' },
-              { type: 'bar', seriesLayoutBy: 'row' },
-              // These series are in the second grid.
-              { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
-              { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
-              { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
-              { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
-            ]
-          };
+        // option = {
+        //     legend: {},
+        //     tooltip: {},
+        //     dataset: {
+        //       source: [
+        //         ['Company Size', 'Small', 'Medium', 'Large'],
+        //         ['Entry Level', enAVG],
+        //         ['Mid/Intermediate Level', miAvg],
+        //         ['Senior Level', exAvg],
+        //         ['Executive Level', seAvg]
+        //       ]
+        //     },
+        //     xAxis: [
+        //       { type: 'category', gridIndex: 0 },
+        //       { type: 'category', gridIndex: 1 }
+        //     ],
+        //     yAxis: [{ gridIndex: 0 }, { gridIndex: 1 }],
+        //     grid: [{ bottom: '55%' }, { top: '55%' }],
+        //     series: [
+        //       // These series are in the first grid.
+        //       { type: 'bar', seriesLayoutBy: 'row' },
+        //       { type: 'bar', seriesLayoutBy: 'row' },
+        //       { type: 'bar', seriesLayoutBy: 'row' },
+        //       // These series are in the second grid.
+        //       { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+        //       { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+        //       { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+        //       { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
+        //     ]
+        //   };
           
-          if (option && typeof option === 'object') {
-            myChart.setOption(option);
-          }
+        //   if (option && typeof option === 'object') {
+        //     myChart.setOption(option);
+        //   }
           
-          window.addEventListener('resize', myChart.resize);
+        //   window.addEventListener('resize', myChart.resize);
     })
 }
+
+function testbar() 
+{
+    var dom = document.getElementById('chart-container');
+    var myChart = echarts.init(dom, null, {
+    renderer: 'canvas',
+    useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+    legend: {},
+    tooltip: {},
+    dataset: {
+        source: [
+        ['product', '2012', '2013', '2014', '2015'],
+        ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],
+        ['Milk Tea', 86.5, 92.1, 85.7, 83.1],
+        ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4]
+        ]
+    },
+    xAxis: [
+        { type: 'category', gridIndex: 0 },
+        { type: 'category', gridIndex: 1 }
+    ],
+    yAxis: [{ gridIndex: 0 }, { gridIndex: 1 }],
+    grid: [{ bottom: '55%' }, { top: '55%' }],
+    series: [
+        // These series are in the first grid.
+        { type: 'bar', seriesLayoutBy: 'row' },
+        { type: 'bar', seriesLayoutBy: 'row' },
+        { type: 'bar', seriesLayoutBy: 'row' },
+        // These series are in the second grid.
+        { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+        { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+        { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+        { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
+    ]
+    };
+
+    if (option && typeof option === 'object') {
+    myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+};
 
 
 initMenu();
 worldMap();
+testbar();
 
