@@ -1,6 +1,8 @@
 // Bring in complete joined dataset.
 const salaryLivingData = "/api/v1.0/complete_data";
 const mapData = "/api/v1.0/cost_of_living_geoJSON";
+const countryList = "/api/v1.0/countryList";
+// const sizeExperience = "/api/v1.0/companySizeExperience";
 
 // Initialize the dropdown menu.
 function initMenu()
@@ -9,76 +11,64 @@ function initMenu()
     let dropDownMenu = d3.select("#selDataset");
 
     // Fetch the JSON data and console log it.
-    d3.json(salaryLivingData).then((data) => 
+    d3.json(countryList).then((data) => 
     {
         console.log(data);
 
-        //Set country names variable.
-        let countryNames = new Set();
+        //Set the country names variable.
+        let countryNames = data
 
-        //Iterate through the country names onto the dropdown menu, appending each key value to the the dropdown as a new option.
-        data.forEach((countryName) =>
+        // //Iterate through the country names onto the dropdown menu
+        countryNames.forEach(function(countryName)
         {
-            countryNames.add(countryName.country)
-            countryList = Array.from(countryNames);
+            dropDownMenu.append("option").text(countryName.country).property("value", countryName.country);
         });
-        
-        countryList.forEach((country) =>
-        {
-            dropDownMenu.append("option").text(country).property("value", country);
-        });
-        
+
+        countryName = countryNames[0];
+
+        groupedBars(countryName);
     })
     
 };
 
-//Create the map.
-// let myMap = L.map("map",
-// {
-//     center: [0,0],
-//     zoom: 0,
-//     //layers: [outdoors, techHubs]
-// });
-// L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-//     {attribution:`&copy; <a href="https://www.openstreetmap.org/copyright">
-//                  OpenStreetMap</a> contributors`})
-//     .addTo(myMap)
-//Create the map chart.
-
+// Create the world map function.
+function worldMap( ) {
 //Perform a GET request to the data for map
 d3.json(mapData).then((data) => 
 {
     console.log(data);
     createFeatures(data.features);
-    // createFeatures(data.features);
-
 
     //Create function for the size of the circle based on the average salary in US dollars.
     function circleSize(avgSalary) {
         return avgSalary * 4;
     };
 
+    //Create a colorDepth function based off the cost of living index
     function colorDepth(costIndex) {
         if (costIndex < 30) {
-            return "#000000";
+            return "#0ad2ff";
         }
         else if (costIndex < 40) {
-            return "#008000";
+            return "#0fffdb";
         }
         else if (costIndex < 50) {
-            return "#00BFFF";
+            return "#2962ff";
         }
         else if (costIndex < 60) {
-            return "#483D8B";
+            return "#b4e600";
         }
         else if (costIndex < 70) {
-            return "#9932CC";
+            return "#ff8c00";
         }
         else if (costIndex < 80) {
-            return "#DC143C";
+            return "#9500ff";
+        }
+        else if (costIndex < 90) {
+            return "#ff0059";
         }
         else {
-            return "#A52A2A";
+            return "#22052d";
         }
     }
 
@@ -90,9 +80,9 @@ d3.json(mapData).then((data) =>
         {
             layer.bindPopup(`<h4>${feature.properties.name}<h4><hr>\
             <h5>Average Salary in USD: ${feature.properties.avg_salary_usd}<h5>\
-            <h5>Cost of Living Index: ${feature.properties.cost_of_living_index}<h5>\
-            <h5>Cost of Living for Single Person in USD: ${feature.properties.cost_of_living_single_usd}<h5>\
-            <h5>Cost of Living for Family of 4 in USD: ${feature.properties.cost_of_living_family4_usd}<h5>\
+            <h5>Cost of Living Index (Housing Not Included): ${feature.properties.cost_of_living_index}<h5>\
+            <h5>Cost of Living for Single Person in USD (Housing Not Included): ${feature.properties.cost_of_living_single_usd}<h5>\
+            <h5>Cost of Living for Family of 4 in USD (Housing Not Included): ${feature.properties.cost_of_living_family4_usd}<h5>\
             <h5>Median Home Price in USD: ${feature.properties.median_home_price_usd}<h5>`);
         }
 
@@ -124,6 +114,7 @@ d3.json(mapData).then((data) =>
     //Create the createMap function.
     function createMap(techHubs)
     {
+        
         //Create the base layers from mapbox.
         let outdoors = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v12/tiles/{z}/{x}/{y}?access_token={access_token}', 
         {
@@ -155,8 +146,9 @@ d3.json(mapData).then((data) =>
         //Create the map.
         let myMap = L.map("map",
         {
-            center: [-10,20],
-            zoom: 2.499,
+            center: [15,20],
+            zoom: .8,
+            minZoom: 2.3,
             layers: [outdoors, techHubs]
         });
 
@@ -173,11 +165,11 @@ d3.json(mapData).then((data) =>
             let div = L.DomUtil.create("div", "info legend"),
             indexLevel = [20,30,40,50,60,70,80,90];
 
-            div.innerHTML += "<h5 style='text-align: right'>CLI</h5>"
+            div.innerHTML += "<h5 style='text-align: right'>CL Index</h5>"
 
             for (var i = 0; i < indexLevel.length; i ++) {
                 div.innerHTML +=
-                '<i style="background:' +colorDepth(indexLevel[i] + 1) + '"></i> ' + indexLevel[i] + (indexLevel[i + 1] ? '&ndash;' + indexLevel[i + 1] + '<br>' : '+');
+                '<i style="background:' + colorDepth(indexLevel[i] + 1) + '"></i> ' + indexLevel[i] + (indexLevel[i + 1] ? '&ndash;' + indexLevel[i + 1] + '<br>' : '+');
             }
             return div;
         };
@@ -185,6 +177,98 @@ d3.json(mapData).then((data) =>
             legend.addTo(myMap);
     }
 });
+}
+
+function groupedBars()
+{
+    let companySizeEx = d3.select("#selDataset").node().value
+    
+    d3.json(`/api/v1.0/companySizeExperience/${companySizeEx}`).then(data => 
+    {
+        console.log(data)
+        
+        //Set the country names variable.
+        let companyDetails = data
+        let enAvg = [];
+        let miAvg = [];
+        let exAvg = [];
+        let seAvg = [];
+
+         // //Iterate through the country names onto the dropdown menu
+         companyDetails.forEach(function(companyDetail)
+         {
+            if (companyDetail.experience_level == "EN")
+            {
+                enAvg.push(companyDetail.round);
+            }
+            else if (companyDetail.experience_level == "MI")
+            {
+                miAvg.push(companyDetail.experience_level, companyDetail.round);
+            }
+            else if (companyDetail.experience_level == "SE")
+            {
+                exAvg.push(companyDetail.experience_level, companyDetail.round);
+            }
+            else
+            {
+                exAvg.push(companyDetail.experience_level, companyDetail.round);
+            }
+         });
+
+        //  console.log(enAvg);
+        //  console.log(miAvg);
+        //  console.log(exAvg);
+        //  console.log(seAvg);
+
+        let dom = document.getElementById('chart-container');
+        let myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+        });
+        let app = {};
+
+        let option;
+
+        option = {
+            legend: {},
+            tooltip: {},
+            dataset: {
+              source: [
+                ['Company Size', 'Small', 'Medium', 'Large'],
+                ['Entry Level', 41.1, 30.4, 65.1, 53.3],
+                ['Mid/Intermediate Level', 86.5, 92.1, 85.7, 83.1],
+                ['Senior Level', 24.1, 67.2, 79.5, 86.4]
+                ['Executive Level', 24.1, 67.2, 79.5, 86.4]
+              ]
+            },
+            xAxis: [
+              { type: 'category', gridIndex: 0 },
+              { type: 'category', gridIndex: 1 }
+            ],
+            yAxis: [{ gridIndex: 0 }, { gridIndex: 1 }],
+            grid: [{ bottom: '55%' }, { top: '55%' }],
+            series: [
+              // These series are in the first grid.
+              { type: 'bar', seriesLayoutBy: 'row' },
+              { type: 'bar', seriesLayoutBy: 'row' },
+              { type: 'bar', seriesLayoutBy: 'row' },
+              // These series are in the second grid.
+              { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+              { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+              { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+              { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
+            ]
+          };
+          
+          if (option && typeof option === 'object') {
+            myChart.setOption(option);
+          }
+          
+          window.addEventListener('resize', myChart.resize);
+    })
+}
+
 
 initMenu();
+worldMap();
 

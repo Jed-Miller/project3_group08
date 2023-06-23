@@ -2,6 +2,9 @@
 import pandas as pd
 import json
 
+from sqlalchemy import create_engine, func
+
+
 from flask import Flask, jsonify, render_template
 
 with open("Data/mapData.json", "r") as f:
@@ -13,7 +16,8 @@ with open("Data/mapData.json", "r") as f:
 #################################################
 app = Flask(__name__)
 
-
+engine = create_engine('postgresql+psycopg2://postgres:postgres\
+@localhost:5432/project03_group08')
 #################################################
 # Flask Routes
 #################################################
@@ -27,17 +31,20 @@ def welcome():
         f"<h4>/api/v1.0/complete_data<br/>"
         f"Returns all data from database.<br/>"
         f"----------------------<br>"
-        f"/api/v1.0/rendered_HTML<br/>"
-        f"Returns rendered version of analytics project<br/>"
-        f"----------------------<br>"
         f"/api/v1.0/cost_of_living_geoJSON<br/>"
         f"Returns geoJSON file of cost_living_metrics<br/>"
         f"----------------------<br>"
         f"/api/v1.0/salary_data_by_country/country_id<br/>"
         f"Returns salary and cost of living data for user-provided country.<br/>"
+         f"----------------------<br>"
+        f"/api/v1.0/countryList<br/>"
+        f"Returns list of countries within the dataset.<br/>"
         f"----------------------<br>"
-        f"/api/v1.0/cost_of_living_overview<br/>"
-        f"Returns list of tech_hubs and their cost of living metrics.<br/>"
+        f"/api/v1.0/companySizeExperience/Australiabr/>"
+        f"Returns list of average salaries based off company size and employee experience level.<br/>"
+        f"----------------------<br>"
+        f"/api/v1.0/rendered_HTML<br/>"
+        f"Returns rendered version of analytics project<br/>"
         f"<br><h3>Available countries and their ids<br>"
         f"----------------------<h3>"
         f"<h4>Australia == AU<br>"
@@ -53,15 +60,21 @@ def welcome():
         f"Netherlands == NE<br>"
         f"Portugal == PT<br>"
         f"United States == US<h4><br>"
-        f"----------------------<br>"
-        f"<br>/api/v1.0/cost_of_living_overview<br/>"
-        f"Returns list of tech_hubs and their cost of living metrics.<br/>"
     )
 
 @app.route("/api/v1.0/complete_data")
 def complete():
     """List complete dataset data."""
-    test_data = pd.read_csv("Data/complete_joined_data.csv")
+    with engine.connect() as connection:
+        query ="""
+        SELECT ds.*, clc.tech_hub,
+		clc.lat, clc.long, clc.cost_of_living_index,
+		clc.cost_of_lving_single_usd, clc.cost_of_living_family4_usd, 
+		clc.median_home_price_usd
+        FROM data_science_salaries ds
+        INNER JOIN cost_of_living_cleaned clc
+        ON ds.company_location = clc.country_id"""
+        test_data = pd.read_sql_query(query, connection)
     return jsonify(test_data.to_dict(orient='records'))
 
 """List cost of living overview data data."""
@@ -78,71 +91,55 @@ def geoJSON():
 
 """List selected country data."""
 @app.route("/api/v1.0/salary_data_by_country/<country_id>")
-def country(country_id): 
-    if country_id == "AU": 
-        test_data = pd.read_csv("Data/AU_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "BR":
-        test_data = pd.read_csv("Data/BR_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "CA":
-        test_data = pd.read_csv("Data/CA_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "DE":
-        test_data = pd.read_csv("Data/DE_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "ES":
-        test_data = pd.read_csv("Data/ES_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "FR":
-        test_data = pd.read_csv("Data/FR_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "GB":
-        test_data = pd.read_csv("Data/GB_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "GR":
-        test_data = pd.read_csv("Data/GR_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "IN":
-        test_data = pd.read_csv("Data/IN_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "MX":
-        test_data = pd.read_csv("Data/MX_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "NL":
-        test_data = pd.read_csv("Data/NL_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "PT":
-        test_data = pd.read_csv("Data/PT_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    elif country_id == "US":
-        test_data = pd.read_csv("Data/US_data.csv")
-        return jsonify(test_data.to_dict(orient='records'))
-    else:
-        return (
-        f"Wrong country id inputted. Please try again.<br>"
-        f"<h3>Available countries and their ids<br>"
-        f"----------------------<h3>"
-        f"<h4>Australia == AU<br>"
-        f"Brazil == BR<br>"
-        f"Canada == CA<br>"
-        f"Denmark == DE<br>"
-        f"Spain == ES<br>"
-        f"France == FR<br>"
-        f"Great Britain == GB<br>"
-        f"Greece == GR<br>"
-        f"India == IN<br>"
-        f"Mexico == MX<br>"
-        f"Netherlands == NE<br>"
-        f"Portugal == PT<br>"
-        f"United States == US<h4><br>"
-        )
+def countrySalary(country_id): 
 
+    with engine.connect() as connection:
+        query =f"""
+        SELECT ds.*, clc.tech_hub,
+		clc.lat, clc.long, clc.cost_of_living_index,
+		clc.cost_of_lving_single_usd, clc.cost_of_living_family4_usd, 
+		clc.median_home_price_usd
+        FROM data_science_salaries ds
+        INNER JOIN cost_of_living_cleaned clc
+        ON ds.company_location = clc.country_id
+        WHERE ds.company_location = '{country_id}';"""
+        test_data = pd.read_sql_query(query, connection)
+        if test_data.empty:
+            return jsonify({"Error": "Wrong Entry"})
+    return jsonify(test_data.to_dict(orient='records'))
 
+@app.route("/api/v1.0/companySizeExperience/<country>")
+def barData(country): 
+
+    with engine.connect() as connection:
+        query =f"""
+        SELECT ds.company_size, ds.experience_level, ROUND(avg(ds.salary_in_usd))
+        FROM data_science_salaries ds
+        INNER JOIN cost_of_living_cleaned clc
+        ON ds.company_location = clc.country_id
+        WHERE clc.country = '{country}'
+        GROUP BY ds.company_size, ds.experience_level"""
+        test_data = pd.read_sql_query(query, connection)
+    return jsonify(test_data.to_dict(orient='records'))
+
+@app.route("/api/v1.0/countryList")
+def countryList(): 
+
+    with engine.connect() as connection:
+        query =f"""
+        SELECT country
+        FROM cost_of_living_cleaned
+        ORDER BY country asc;"""
+        test_data = pd.read_sql_query(query, connection)
+    return jsonify(test_data.to_dict(orient='records'))
 
 @app.route("/api/v1.0/rendered_HTML")
-def render():
+def renderWelcome():
     return render_template("index.html")
 
+@app.route("/api/v1.0/map")
+def renderMap():
+    return render_template("map.html")
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0",port=9595,debug=True)
