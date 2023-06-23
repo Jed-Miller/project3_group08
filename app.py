@@ -106,7 +106,7 @@ def countrySalary(country_id):
         test_data = pd.read_sql_query(query, connection)
         if test_data.empty:
             return jsonify({"Error": "Wrong Entry"})
-    return jsonify(test_data.to_dict(orient='split'))
+    return jsonify(test_data.to_dict(orient='records'))
 
 @app.route("/api/v1.0/companySizeExperience/<country>")
 def barData(country): 
@@ -120,10 +120,7 @@ def barData(country):
         WHERE clc.country = '{country}'
         GROUP BY ds.company_size, ds.experience_level"""
         test_data = pd.read_sql_query(query, connection)
-        result = test_data.to_json(orient='split')
-        parsed = json.loads(result)
-        barJSON = json.dumps(parsed, indent=1)
-        return barJSON
+    return jsonify(test_data.to_dict(orient='records'))
 
 @app.route("/api/v1.0/countryList")
 def countryList(): 
@@ -134,10 +131,7 @@ def countryList():
         FROM cost_of_living_cleaned
         ORDER BY country asc;"""
         test_data = pd.read_sql_query(query, connection)
-        result = test_data.to_json(orient='split')
-        parsed = json.loads(result)
-        countryJSON = json.dumps(parsed, indent=1)
-        return countryJSON
+    return jsonify(test_data.to_dict(orient='records'))
 
 @app.route("/api/v1.0/rendered_HTML")
 def renderWelcome():
