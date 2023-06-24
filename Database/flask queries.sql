@@ -163,3 +163,23 @@ INNER JOIN cost_of_living_cleaned clc
 ON ds.company_location = clc.country_id
 WHERE ds.company_location = 'AU';
 
+--US data
+SELECT clc.country, ds.company_size, ds.experience_level, ROUND(avg(ds.salary_in_usd))
+FROM data_science_salaries ds
+INNER JOIN cost_of_living_cleaned clc
+ON ds.company_location = clc.country_id
+WHERE clc.country = 'United States'
+AND ds.experience_level = 'EX'
+GROUP BY clc.country, ds.company_size, ds.experience_level
+
+--Salaries by Job Title
+SELECT job_title, salary_in_usd
+FROM data_science_salaries
+WHERE job_title IN('Data Engineer', 'Data Analyst', 'Data Scientist',
+				   'Machine Learning Engineer', 'Analytics Engineer',
+				   'Research Scientist', 'Data Architect')
+	
+--Country List
+SELECT country
+FROM cost_of_living_cleaned
+ORDER BY country asc;

@@ -254,10 +254,10 @@ function groupedBars(selectedCountry)
             dataset: {
               source: [
                 ['Company Size', 'Small', 'Medium', 'Large'],
-                ['Entry Level', ...enAvg],
-                ['Mid Level', ...miAvg],
-                ['Senior Level', ...seAvg],
-                ['Executive Level', ...exAvg]
+                ['Entry', ...enAvg],
+                ['Mid', ...miAvg],
+                ['Senior', ...seAvg],
+                ['Executive', ...exAvg]
               ]
             },
             xAxis: [
