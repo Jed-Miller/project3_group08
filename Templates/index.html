@@ -29,9 +29,10 @@
 
   <body>
       <div class="row">
-        <div style="background: #5F9EA0 !important" class="col-md-12 jumbotron text-center">
+        <!-- <div style="background: #5F9EA0 !important" class="col-md-7 align-items center jumbotron text-center"> -->
+          <h1></h1>
           <h1>Data Salaries by Country</h1>
-          <p>Use the interactive charts below to explore the dataset</p>
+          <h4>Use the interactive charts below to explore the dataset</h4>
           <p style="text-align: center">
         </div>
       </div>
@@ -47,11 +48,12 @@
             <select id="selDataset" onchange="optionChanged(this.value)"></select>
           </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-lg-5">
+          <!--<h4>Salary Ranges by Company Size</h4>-->
           <div id="chart-container"></div>
           <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
         </div>
-        <div class="col-md-5">
+        <div class="col-lg-4">
           <div id="mymap"></div>
         </div>
       </div>
