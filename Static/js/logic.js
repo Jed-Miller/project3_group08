@@ -36,7 +36,6 @@ function initMenu()
 
         groupedBars(sampleCountry);
         worldMap();
-        testbar();
         boxplot_data();
     })
     
@@ -249,15 +248,22 @@ function groupedBars(selectedCountry)
         let option;
 
         option = {
-            legend: {},
+            title: {
+                text: 'Salary Ranges by Company Size and Employee Experience Level',
+                textStyle: {
+                    fontFamily: 'Merriweather',
+                    fontSize: 16
+                },
+                
+            },
             tooltip: {},
             dataset: {
               source: [
                 ['Company Size', 'Small', 'Medium', 'Large'],
-                ['Entry Level', ...enAvg],
-                ['Mid Level', ...miAvg],
-                ['Senior Level', ...seAvg],
-                ['Executive Level', ...exAvg]
+                ['Entry', ...enAvg],
+                ['Mid', ...miAvg],
+                ['Senior', ...seAvg],
+                ['Executive', ...exAvg]
               ]
             },
             xAxis: [
@@ -265,7 +271,7 @@ function groupedBars(selectedCountry)
               { type: 'category', gridIndex: 1 }
             ],
             yAxis: [{ gridIndex: 0 }, { gridIndex: 1 }],
-            grid: [{ bottom: '50%' }, { top: '50%' }],
+            grid: [{ bottom: '55%' }, { top: '55%' }],
             series: [
               // These series are in the first grid.
               { type: 'bar', seriesLayoutBy: 'row' },
@@ -276,7 +282,10 @@ function groupedBars(selectedCountry)
               { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
               { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
               { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
-            ]
+            ],
+            legend: {
+                bottom: 0
+            }
           };
           
           if (option && typeof option === 'object') {
@@ -287,53 +296,6 @@ function groupedBars(selectedCountry)
     })
 }
 
-// function testbar() 
-// {
-//     var dom = document.getElementById('chart-container');
-//     var myChart = echarts.init(dom, null, {
-//     renderer: 'canvas',
-//     useDirtyRect: false
-//     });
-//     var app = {};
-
-//     var option;
-
-//     option = {
-//     legend: {},
-//     tooltip: {},
-//     dataset: {
-//         source: [
-//         ['product', '2012', '2013', '2014', '2015'],
-//         ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],
-//         ['Milk Tea', 86.5, 92.1, 85.7, 83.1],
-//         ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4]
-//         ]
-//     },
-//     xAxis: [
-//         { type: 'category', gridIndex: 0 },
-//         { type: 'category', gridIndex: 1 }
-//     ],
-//     yAxis: [{ gridIndex: 0 }, { gridIndex: 1 }],
-//     grid: [{ bottom: '55%' }, { top: '55%' }],
-//     series: [
-//         // These series are in the first grid.
-//         { type: 'bar', seriesLayoutBy: 'row' },
-//         { type: 'bar', seriesLayoutBy: 'row' },
-//         { type: 'bar', seriesLayoutBy: 'row' },
-//         // These series are in the second grid.
-//         { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
-//         { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
-//         { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
-//         { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
-//     ]
-//     };
-
-//     if (option && typeof option === 'object') {
-//     myChart.setOption(option);
-//     }
-
-//     window.addEventListener('resize', myChart.resize);
-// };
 
 function boxplot_data()
 {
@@ -381,7 +343,18 @@ function boxplot_data()
       name:'Research Scientist'
     };
     var data = [Data_Analyst, Data_Scientist,Data_Engineer,Machine_Learning,Analytics_Engineer,Data_Architect,Research_Scientist];
-    Plotly.newPlot('mymap', data);
+    let title = "Salary Ranges for Top 7 Job Titles Listed";
+    let barLayout =
+    {
+        title: title,
+        font: {
+            family: 'Merriweather',
+            size: 12
+        },
+        xref: 'paper',
+        x: 0
+    }
+    Plotly.newPlot('mymap', data, barLayout);
     });
   }
 
