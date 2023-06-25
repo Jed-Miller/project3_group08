@@ -248,11 +248,15 @@ function groupedBars(selectedCountry)
         let option;
 
         option = {
+            textStyle: {
+                color: 'white'
+            },
             title: {
                 text: 'Salary Ranges by Company Size and Employee Experience Level',
                 textStyle: {
                     fontFamily: 'Merriweather',
-                    fontSize: 16
+                    fontSize: 16,
+                    color: 'white'
                 },
                 
             },
@@ -284,6 +288,9 @@ function groupedBars(selectedCountry)
               { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
             ],
             legend: {
+                textStyle: {
+                    color: 'white'
+                },
                 bottom: 0
             }
           };
@@ -349,10 +356,13 @@ function boxplot_data()
         title: title,
         font: {
             family: 'Merriweather',
-            size: 12
+            size: 12,
+            color: 'white'
         },
         xref: 'paper',
-        x: 0
+        x: 0,
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: ' rgba(0,0,0,0)'
     }
     Plotly.newPlot('mymap', data, barLayout);
     });
