@@ -156,7 +156,7 @@ d3.json(mapData).then((data) =>
         //Create the map.
         let myMap = L.map("map",
         {
-            center: [15,20],
+            center: [13,20],
             zoom: .8,
             minZoom: 2.3,
             layers: [outdoors, techHubs]
