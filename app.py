@@ -153,9 +153,5 @@ def countryList():
 def renderWelcome():
     return render_template("index.html")
 
-@app.route("/api/v1.0/map")
-def renderMap():
-    return render_template("map.html")
-
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=9595,debug=True)
