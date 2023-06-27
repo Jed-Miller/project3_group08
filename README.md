@@ -4,7 +4,7 @@
 
 ## Team Members
 
-Vidaya Gadaye, Sophia Felix, Jed Miller, Ashley Song
+Vidya Gadave, Sophia Felix, Jed Miller, Ashley Song
 
 ## Database Creation
 
