@@ -291,7 +291,7 @@ function groupedBars(selectedCountry)
                 textStyle: {
                     color: 'white'
                 },
-                bottom: 0
+                top: 30
             }
           };
           
@@ -361,6 +361,7 @@ function boxplot_data()
         },
         xref: 'paper',
         x: 0,
+        height: 650,
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: ' rgba(0,0,0,0)'
     }
