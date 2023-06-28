@@ -88,7 +88,7 @@ d3.json(mapData).then((data) =>
         // Give each feature a popup that tells the cost of living metrics.
         function onEachFeature(feature, layer)
         {
-            layer.bindPopup(`<h4>${feature.properties.name}<h4><hr>\
+            layer.bindPopup(`<h5>City: ${feature.properties.name}<h5>\
             <h5>Average Salary in USD: ${feature.properties.avg_salary_usd}<h5>\
             <h5>Cost of Living Index (Housing Not Included): ${feature.properties.cost_of_living_index}<h5>\
             <h5>Cost of Living for Single Person in USD (Housing Not Included): ${feature.properties.cost_of_living_single_usd}<h5>\
